@@ -1,0 +1,15 @@
+<template>
+    <lightning-card title="Leads">
+        <template if:true={leads}>
+            <lightning-datatable
+                key-field="Id"
+                data={leads}
+                columns={columns}
+                hide-checkbox-column="true"
+                oncellchange={handleCellChange}
+                draft-values={draftValues}
+                suppress-bottom-bar>
+           </lightning-datatable>
+        </template>
+    </lightning-card>
+</template>
