@@ -1,0 +1,47 @@
+<template>
+    <lightning-card title="Contacts">
+        <div class="slds-m-around_medium">
+            <lightning-input type="search"
+                variant="label-hidden"
+                class="slds-var-m-bottom_small"
+                label="Search"
+                placeholder="Search for Contacts"
+                value={searchTerm}>
+            </lightning-input>
+            <lightning-button label="FILTER" onclick={handleSearch}></lightning-button>
+            <lightning-button label="NEW" onclick={handleOpenCreateContactModal}></lightning-button>
+            <template if:true={contacts}>
+                <lightning-datatable
+                    key-field="Id"
+                    data={contacts}
+                    columns={columns}
+                    hide-checkbox-column="true"
+                    onrowaction={handleRowAction}
+                >
+               </lightning-datatable>
+            </template>
+            <template if:true={error}>
+                <div class="slds-text-color_error">
+                    <p>{errors}</p>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+    <!-- modal create start -->        
+    <template if:true={showModalCreateContact}>
+       <c-modal-contact-creating 
+            onhandleclosecreatecontactmodal={handleCloseCreateContactModal}>
+        </c-modal-contact-creating>
+       <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <!-- modal end -->
+    <!-- modal delete start -->    
+    <template if:true={showModalDeleteContact}>
+       <c-modal-contact-deleting 
+            record-id={recordId}
+            onhandleclosedeletecontactmodal={handleCloseDeleteContactModal}>
+        </c-modal-contact-deleting>
+       <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <!-- modal end -->
+</template>
